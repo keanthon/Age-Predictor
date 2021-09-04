@@ -1,14 +1,16 @@
 import numpy as np
 import cv2
 import os
+import glob
 from mtcnn.mtcnn import MTCNN
 
 detector = MTCNN()
 
 curr = os.getcwd()
 data = curr + '/test2'
+jpgCount = len(glob.glob1(data, "*.jpg"))
 counter = 0
-for i in range(34):
+for i in range(jpgCount):
     print(counter)
     
     img_path = data + '/' + str(i) + '.jpg'

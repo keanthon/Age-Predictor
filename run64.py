@@ -3,21 +3,24 @@ import sys
 import numpy as np
 import pandas as pd
 import cv2
+import glob
 from keras.models import Sequential
 from keras import Input, Model
 from sklearn.model_selection import train_test_split
 from keras.layers import Dense, BatchNormalization, MaxPooling2D, Conv2D, Activation, Flatten, Dropout
 from keras.callbacks import ModelCheckpoint
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 from keras import backend
 
 def main():
     if len(sys.argv) == 2:
-        if sys.argv[1]=='-s':
-            print("Predicting from 0 to 146")
+        if sys.argv[1]=='-p':
+            print("Predicting from 0 to 99")
             predict_score_img = []
-            for i in range(39):
-                path = 'testdata2/' + str(i) + '.jpg'
+            parent = 'testdata2/'
+            jpgCount = len(glob.glob1(parent, "*.jpg"))
+            for i in range(jpgCount):
+                path = parent + str(i) + '.jpg'
                 # print(path)
                 img = cv2.imread(path)
                 img = cv2.resize(img, (128,128))
@@ -32,39 +35,19 @@ def main():
             predict_score_img = np.array(predict_score_img) / 255.0
             predict_rating = 110 * model.predict(predict_score_img).flatten()
             
+            prediction_file = open('prediction.txt', 'a+')
             for i, rating in enumerate(predict_rating):
-                print(f"{i} :    {rating}")
+                prediction_file.write(f"{i} :    {rating}\n")
+            prediction_file.close()
         
-        else:
-            print("My life")
-            predict_score_img = []
-            for i in range(5):
-                path = 'mylife/' + str(i) + '.jpg'
-                img = cv2.imread(path)
-                img = cv2.resize(img, (128,128))
-                predict_score_img.append(img)
-            
-            model = create_cnn(128, 128, 3, regress=True)
-            model.load_weights("best_model.hdf5")
-
-            opt = Adam(lr=1e-3, decay=1e-3 / 200)
-            model.compile(loss='mean_absolute_percentage_error', optimizer=opt)
-            print("Loaded previously trained best weights")
-            predict_score_img = np.array(predict_score_img) / 255.0
-            predict_rating = 110 * model.predict(predict_score_img).flatten()
-            
-            for i, rating in enumerate(predict_rating):
-                print(f"{i} :    {rating}")
         
-
-
 
     else:
         
         print("Loading image...")
         images = []
         ages = []
-        dirt = 'crop_part1/'
+        dirt = 'UTKFace/'
         for image_path in os.listdir(dirt):
             img = cv2.imread(dirt+image_path)
             print(image_path)
