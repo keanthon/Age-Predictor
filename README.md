@@ -3,7 +3,7 @@ Age predictor that takes in an image and return the predicted age of the person 
 
 Predictor is built using Convolutional Neural Network with an adjustable number of filters and trained on the UTKFace dataset using Adam optimizer
 
-rename.sh is included to rename the source image files for ease of formatting when feeding in the data.
+rename.sh is included in folder "test2" to rename the source image files for ease of formatting when feeding in the data.
 
 facecropmine.py is included to crop the desired face out of source images before it is ran through the predictor.
 
