@@ -8,10 +8,10 @@ rename.sh is included in folder "test2" to rename the source image files for eas
 facecropmine.py is included to crop the desired face out of source images before it is ran through the predictor.
 
 ## Instruction
-### Retraining
-1. Run ```pip install -r requirements.txt``` before proceeding
+Run ```pip install -r requirements.txt``` before proceeding
 
-2. To retrain model with new images, put images in "UTKFace" folder and run ```python3 run64.py``` Make sure to name your images as  "{age}_description.jpg"
+### Retraining
+1. To retrain model with new images, put images in "UTKFace" folder and run ```python3 run64.py``` Make sure to name your images as  "{age}_description.jpg"
    For example, if there is an image of a 5 years old boy, it should be named "5_andy.jpg"
 
 ### Prediction
